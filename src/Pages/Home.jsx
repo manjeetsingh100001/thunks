@@ -1,15 +1,31 @@
 
-const initState={
+import { postLogin } from "../Redux/app/action";
+import { useState } from "react";
+ import { useDispatch } from "react-redux";
 
-}
-import { useDispatch } from "react-redux";
-const dispatch=useDispatch()
 function Home() {
+    const dispatch=useDispatch()
+    const inState={
+        email:"",
+        password:""
+        }
+        const [inp,setInput]=useState(inState)
+        const handleChange=(e)=>{
+         const{id,value}=e.target;
+         setInput({
+             ...inp,
+             [id]:value
+         })
+        }
+    const handleClick=()=>{
+      console.log(inp.email,inp.password)
+      dispatch(postLogin(inp.email,inp.password))
+    }
     return (
       <>
-      <input type="text" placeholder="email" id="email"/>
-      <input type="password" placeholder="password" id="password"/>.
-      <button onClick={()=>dispatch(login)}></button>
+      <input type="text" onChange={handleChange} placeholder="email" id="email"/>
+      <input type="password" onChange={handleChange} placeholder="password" id="password"/>.
+      <button onClick={()=>handleClick()}>login</button>
        </>
     )}
     export default Home
